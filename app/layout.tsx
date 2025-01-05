@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 import "@/app/_styles/globals.css";
 
 export const metadata = {
-  title: "sa",
+  title: "The Wild Oasis",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
