@@ -8,6 +8,7 @@ export const metadata = {
     template: "%s | The Wild Oasis",
     default: "The Wild Oasis",
   },
+  description: "A beautiful oasis in the wild",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
