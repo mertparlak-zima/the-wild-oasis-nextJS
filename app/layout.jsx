@@ -1,6 +1,5 @@
-import { ReactNode } from "react";
 import { Josefin_Sans } from "next/font/google";
-import Header from "./_components/Header";
+import Header from "@/app/_components/Header";
 const josefin = Josefin_Sans({
   subsets: ["latin"],
   display: "swap",
@@ -16,7 +15,7 @@ export const metadata = {
   description: "A beautiful oasis in the wild",
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
