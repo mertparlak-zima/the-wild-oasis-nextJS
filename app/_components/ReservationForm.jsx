@@ -1,5 +1,8 @@
+"use client";
+import { useReservation } from "../context/ReservationContext";
+
 function ReservationForm({ cabin }) {
-  // CHANGE
+  const { range } = useReservation();
   const { maxCapacity } = cabin;
 
   return (
@@ -31,7 +34,7 @@ function ReservationForm({ cabin }) {
             <option value="" key="">
               Select number of guests...
             </option>
-            {Array.from({ length: maxCapacity }, (_, i) => i + 1).map((x) => (
+            {Array?.from({ length: maxCapacity }, (_, i) => i + 1)?.map((x) => (
               <option value={x} key={x}>
                 {x} {x === 1 ? "guest" : "guests"}
               </option>
