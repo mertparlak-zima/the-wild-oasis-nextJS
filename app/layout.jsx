@@ -7,6 +7,8 @@ const josefin = Josefin_Sans({
 
 import "@/app/_styles/globals.css";
 import { ReservationProvider } from "./context/ReservationContext";
+import { SessionProvider } from "next-auth/react";
+import { AuthContextProvider } from "./context/AuthContext";
 
 export const metadata = {
   title: {
@@ -18,17 +20,21 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={`${josefin?.className} bg-primary-950 text-primary-100 min-h-screen flex flex-col relative`}
-      >
-        <Header />
-        <div className="flex-1 px-8 py-12 grid">
-          <main className="max-w-7xl w-full mx-auto">
-            <ReservationProvider>{children}</ReservationProvider>
-          </main>
-        </div>
-      </body>
-    </html>
+    <SessionProvider>
+      <AuthContextProvider>
+        <html lang="en">
+          <body
+            className={`${josefin?.className} bg-primary-950 text-primary-100 min-h-screen flex flex-col relative`}
+          >
+            <Header />
+            <div className="flex-1 px-8 py-12 grid">
+              <main className="max-w-7xl w-full mx-auto">
+                <ReservationProvider>{children}</ReservationProvider>
+              </main>
+            </div>
+          </body>
+        </html>
+      </AuthContextProvider>
+    </SessionProvider>
   );
 }
