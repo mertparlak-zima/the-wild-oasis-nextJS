@@ -11,9 +11,7 @@ export async function signInAction(formData) {
 }
 
 export async function singOutAction() {
-  await signOut({
-    redirectTo: "/",
-  });
+  await signOut();
 }
 
 export async function updateGuest(formData) {
