@@ -24,10 +24,10 @@ function ReservationForm({ cabin, user }) {
 
       <form className="bg-primary-900 py-10 px-16 text-lg flex gap-5 flex-col">
         <div className="space-y-2">
-          <label htmlFor="numGuests">How many guests?</label>
+          <label htmlFor="numberGuests">How many guests?</label>
           <select
-            name="numGuests"
-            id="numGuests"
+            name="numberGuests"
+            id="numberGuests"
             className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
             required
           >
