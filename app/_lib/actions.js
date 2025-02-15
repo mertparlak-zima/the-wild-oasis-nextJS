@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { signIn, signOut, auth } from "./auth";
 import { supabase } from "./supabase";
+import { redirect } from "next/navigation";
 
 export async function signInAction(formData) {
   const provider = formData.get("provider");
@@ -46,8 +47,6 @@ export async function deleteReservation(bookingId) {
 
   if (!session) throw new Error("You must be logged in");
 
-  console.log(bookingId);
-
   const { data, error } = await supabase
     .from("bookings")
     .delete()
@@ -60,4 +59,37 @@ export async function deleteReservation(bookingId) {
   }
 
   revalidatePath("/account/reservations");
+}
+
+export async function updateReservation(formData) {
+  const session = await auth();
+
+  if (!session) throw new Error("You must be logged in");
+
+  const entries = Object.fromEntries(formData.entries());
+  const id = entries.id;
+
+  const updatedFields = {
+    numberGuests: Number(entries.numGuests),
+    observations: entries.observations.slice(0, 1000),
+  };
+
+  if (!updatedFields && !id) {
+    throw new Error("Someting went wrong, try again!");
+  }
+
+  const { data, error } = await supabase
+    .from("bookings")
+    .update(updatedFields)
+    .eq("id", id)
+    .eq("guestId", session.user.guestId);
+
+  if (error) {
+    console.error(error);
+    throw new Error("Booking could not be updated");
+  }
+
+  revalidatePath(`/account/reservations/edit/${id}`);
+  console.log("Booking update was succeeded!");
+  redirect("/account/reservations");
 }
